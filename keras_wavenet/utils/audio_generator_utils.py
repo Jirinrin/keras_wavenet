@@ -114,8 +114,8 @@ class WavGenerator(object):
                  max_loc=None,
                  front_padding=0.0,
                  random_offset=False,
-                 uint16_rescale=False
-                 
+                 uint16_rescale=False,
+                 sample_to_categorical=False
                  ):
         self.load_kwargs = load_kwargs
         self.target_size = target_size
@@ -234,7 +234,7 @@ class DirectoryIterator(Iterator):
         for root,folders,files in os.walk(directory,followlinks=True):
             for file in files:
                 if os.path.splitext(file)[-1] in wav_format:
-                    self.filenames.append(os.path.join(root,file))
+                    self.filenames.append(file)
         
         self.samples = len(self.filenames)
 

@@ -25,5 +25,9 @@
         "num_dec_layers": 30,
         "num_dec_stages": 10,
         "final_activation": "softmax"
+    },
+    "train_dict": {
+        "batch_size": 2,
+        "epochs": 50
     }
 }

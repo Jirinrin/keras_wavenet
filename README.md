@@ -1,4 +1,7 @@
 # keras_wavenet
+
+cmd: `python .\build_wavenet.py --train_folder train_folder --valid_folder valid_folder --save_path model --config_json wavenet_config.json`
+
 Keras implementation of Wavenet (https://arxiv.org/abs/1609.03499).
 
 Also includes an implementation of Fast/Queued Wavenet (https://arxiv.org/abs/1611.09482)

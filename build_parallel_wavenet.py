@@ -6,7 +6,6 @@ import keras
 import argparse
 from keras_wavenet.utils.audio_generator_utils import WavGenerator
 import numpy as np
-from keras.optimizers import Adam
 from keras_wavenet.weightnorm import AdamWithWeightnorm
 from keras_wavenet.models.parallel_wavenet import wavenet_noskip_iaf_step
 from keras_wavenet.layers.wavenet import custom_objs

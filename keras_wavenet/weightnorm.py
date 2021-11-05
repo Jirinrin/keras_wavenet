@@ -3,11 +3,10 @@
 Pulled directly from https://github.com/openai/weightnorm/blob/master/keras/weightnorm.py
 '''
 from keras import backend as K
-from keras.optimizers import SGD,Adam
 import tensorflow as tf
 
 # adapted from keras.optimizers.SGD
-class SGDWithWeightnorm(SGD):
+class SGDWithWeightnorm(tf.keras.optimizers.SGD):
     def get_updates(self, params, constraints, loss):
         grads = self.get_gradients(loss, params)
         self.updates = []
@@ -76,7 +75,7 @@ class SGDWithWeightnorm(SGD):
         return self.updates
 
 # adapted from keras.optimizers.Adam
-class AdamWithWeightnorm(Adam):
+class AdamWithWeightnorm(tf.keras.optimizers.Adam):
     def get_updates(self, params, loss,constraints=[]):
         grads = self.get_gradients(loss, params)
         self.updates = [K.update_add(self.iterations, 1)]

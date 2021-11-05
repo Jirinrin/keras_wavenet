@@ -149,7 +149,7 @@ def build_wavenet_decoder(signal,encoding,
     '''
     
     sig_shift = TemporalShift(shift=1,name=base_name+'temporal_shift')(signal)
-    _,sig_len,_ = signal._keras_shape
+    _,sig_len,_ = signal.shape
     
     sig = Conv1D(filters=width,
                    kernel_size=filt_len,

@@ -1,5 +1,5 @@
 import numpy as np
-from keras.utils import to_categorical
+import keras
 from scipy.io.wavfile import read
 from scipy.signal import resample_poly
     
@@ -23,7 +23,7 @@ def sample_to_categorical(x,bias=128,num_classes=256):
     '''converts a numpy array from wavfile samples to categorical array as described 
         in wavenet paper (no mu_law transformation)
     '''
-    x_categorical = to_categorical(x,num_classes=num_classes)
+    x_categorical = keras.utils.to_categorical(x,num_classes=num_classes)
     return x_categorical
     
 def categorical_to_sample(x,bias=128):

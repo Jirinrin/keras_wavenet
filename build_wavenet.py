@@ -3,7 +3,6 @@ import keras
 import argparse
 from keras_wavenet.utils.audio_generator_utils import WavGenerator
 import numpy as np
-from keras.optimizers import Adam
 from keras_wavenet.weightnorm import AdamWithWeightnorm
 
 import keras.backend as K
@@ -183,14 +182,14 @@ model.compile(optimizer=AdamWithWeightnorm(),
 
 #sys.exit()
 
-early_stop=keras.callbacks.EarlyStopping(monitor='val_loss',
+early_stop=keras.callbacks.EarlyStopping(monitor='loss',
                                         patience=train_dict['patience'],
                                         verbose=0, mode='auto')
 csv_log = keras.callbacks.CSVLogger(args.save_path+'.csv')
 model_checkpoint = keras.callbacks.ModelCheckpoint(args.save_path+'.hdf5',
                                                    save_best_only=True)
 lr_plateu = keras.callbacks.ReduceLROnPlateau(factor=0.2,patience=7)
-model.fit_generator(train_gen,
+model.fit(train_gen,
                     steps_per_epoch=num_train_steps_per_epoch,
                     validation_data=valid_gen,
                     validation_steps=num_valid_steps_per_epoch,
@@ -200,7 +199,4 @@ model.fit_generator(train_gen,
 
                     )
 
-
-
-
-
+model.save(args.save_path+'.hdf5')

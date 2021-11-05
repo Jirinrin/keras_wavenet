@@ -24,7 +24,7 @@ class TemporalShift(Layer):
         
         
     def call(self,x):
-        x_shape = x._keras_shape
+        x_shape = x.shape
         assert len(x_shape) == 3, "TemporalShift input must be dim 3"
         self.padding = (K.maximum(self.shift,0),-K.minimum(self.shift,0))
         x = K.temporal_padding(x, padding=self.padding)
@@ -50,7 +50,7 @@ class RandomTemporalShift(Layer):
         self.max_shift = max_shift
         
     def call(self,x):
-        x_shape = x._keras_shape
+        x_shape = x.shape
         assert len(x_shape) == 3, "TemporalShift input must be dim 3"
 
         rand_shift = K.cast(K.exp(K.random_normal(
@@ -75,7 +75,7 @@ class WavenetActivation(Layer):
         separately
     '''
     def call(self,x):
-        _,_,n_ch = x._keras_shape
+        _,_,n_ch = x.shape
         half_ch = n_ch//2
         x_sigmoid = K.sigmoid(x[:, :, :half_ch])
         x_tanh = K.tanh(x[:, :, half_ch:])
@@ -130,14 +130,14 @@ class AddEncoder(Layer):
         assert len(inputs) == 2 
         
         sig,enc = inputs
-        sig_nb, sig_len, sig_ch = sig._keras_shape
-        enc_nb, enc_len, enc_ch = enc._keras_shape
+        sig_nb, sig_len, sig_ch = sig.shape
+        enc_nb, enc_len, enc_ch = enc.shape
         
         assert sig_nb == enc_nb
         assert sig_ch == enc_ch
         
         sig_re = K.reshape(sig, (K.shape(sig)[0],)+(enc_len,-1,enc_ch))
-        intermediate_shape = self._fix_unknown_dimension(sig._keras_shape[1:],
+        intermediate_shape = self._fix_unknown_dimension(sig.shape[1:],
                                                          (enc_len,-1,enc_ch))
         intermedia_len = intermediate_shape[1]
         
